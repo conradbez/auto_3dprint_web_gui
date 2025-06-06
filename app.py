@@ -7,7 +7,7 @@ from hstream import hs
 import base64
 
 hs.markdown(f"# Auto eject and loop Bambu A1 and A1 mini prints")
-hs.markdown("Automatically add start/end blocks and duplicate G-code sequences for repeated printing")
+hs.markdown("Automatically add start/end blocks and duplicate G-code sequences for automated repeated printing")
 with hs.html("article", _class="warning", style="border-left: 4px solid #ffc107; background: #fffbe6; padding: 1em; margin-bottom: 1.5em;"):
     hs.markdown("⚠️ **Warning:** This tool modifies your G-code.3mf file by injecting custom start/end blocks and duplicating the print sequence. Always review the output and test carefully before using on your printer.")
 
