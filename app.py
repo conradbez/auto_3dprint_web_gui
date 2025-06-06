@@ -95,7 +95,7 @@ with open(start_file, "r", encoding="utf-8") as f:
 with open(end_file, "r", encoding="utf-8") as f:
     end_block = f.read()
 
-uploaded_file = hs.file_upload("Upload your gcode.3mf file:")
+uploaded_file = hs.file_upload("Upload your gcode.3mf file: (see 'How to export from bambulab' if you're unsure how to do this)")
 repeat_count = int(hs.number_input("How many times to duplicate the G-code?", default_value=1, min_value=1, max_value=20))
 
 if uploaded_file and hs.button('Process and Download'):
