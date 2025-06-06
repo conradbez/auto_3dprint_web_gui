@@ -63,8 +63,34 @@ with open("Start_A1_Mini.txt", "r", encoding="utf-8") as f:
     start_block = f.read()
 with open("End_A1_Mini.txt", "r", encoding="utf-8") as f:
     end_block = f.read()
-hs.markdown("# 3MF G-code Modifier")
 
+
+hs.markdown("# Auto eject and loop Bambu A1 *mini* prints")
+hs.markdown("Automatically add start/end blocks and duplicate G-code sequences for repeated printing")
+with hs.html("article", _class="warning", style="border-left: 4px solid #ffc107; background: #fffbe6; padding: 1em; margin-bottom: 1.5em;"):
+    hs.markdown("⚠️ **Warning:** This tool modifies your G-code.3mf file by injecting custom start/end blocks and duplicating the print sequence. Always review the output and test carefully before using on your printer.")
+
+with hs.html("details"):
+    with hs.html("summary", style="cursor: pointer; font-weight: bold;"):
+        hs.text("Usage")
+    hs.markdown('[Watch Factorian Designs video first](https://www.youtube.com/watch?v=SFd0sxN2eqk)')
+    hs.markdown("""
+    - **1. Upload 3MF File**: Select your BambuLab-generated `.gcode.3mf` file (see `How to export from bambulab` below)
+    - **2. Set Duplication**: Choose how many times to repeat the G-code sequence (default=1 for single print)
+    - **3. Process File**: Click the button to inject start/end blocks and duplicate the pattern
+    - **4. Download**: Get modified 3MF with `_modified` suffix for printer-ready looping
+    """)
+
+# hs.markdown("### Usage Steps")
+# hs.markdown('[Watch Factorian Designs video first](https://www.youtube.com/watch?v=SFd0sxN2eqk)')
+# hs.markdown("""
+# - **1. Upload 3MF File**: Select your BambuLab-generated `.gcode.3mf` file (see `How to export from bambulab` below)
+# - **2. Set Duplication**: Choose how many times to repeat the G-code sequence (default=1 for single print)
+# - **3. Process File**: Click the button to inject start/end blocks and duplicate the pattern
+# - **4. Download**: Get modified 3MF with `_modified` suffix for printer-ready looping
+# """)
+hs.markdown("---")
+hs.markdown("## Get going ✈️")
 uploaded_file = hs.file_upload("Upload your gcode.3mf file")
 repeat_count = int(hs.number_input("How many times to duplicate the G-code?", default_value=1, min_value=1, max_value=20))
 
@@ -85,7 +111,6 @@ if uploaded_file and hs.button('Process and Download'):
                         download='gcode_modified.3mf',
                         style="background-color: #4CAF50; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; display: inline-block;"):
                 hs.text("📥 Download Modified 3MF")
-
 
 
 with hs.html("details"):
