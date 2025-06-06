@@ -64,6 +64,7 @@ with open("Start_A1_Mini.txt", "r", encoding="utf-8") as f:
 with open("End_A1_Mini.txt", "r", encoding="utf-8") as f:
     end_block = f.read()
 hs.markdown("# 3MF G-code Modifier")
+
 uploaded_file = hs.file_upload("Upload your gcode.3mf file")
 repeat_count = int(hs.number_input("How many times to duplicate the G-code?", default_value=1, min_value=1, max_value=20))
 
@@ -84,3 +85,11 @@ if uploaded_file and hs.button('Process and Download'):
                         download='gcode_modified.3mf',
                         style="background-color: #4CAF50; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; display: inline-block;"):
                 hs.text("📥 Download Modified 3MF")
+
+
+
+with hs.html("details"):
+    with hs.html("summary", style="cursor: pointer; font-weight: bold;"):
+        hs.text("How to export from bambulab")
+    with hs.html("img", src="https://raw.githubusercontent.com/conradbez/auto_3dprint_web_gui/refs/heads/main/export_tutorial.gif", alt="How to export from bambulab", style="display: block; width: 100%; height: auto; margin-top: 10px;"):
+        pass
