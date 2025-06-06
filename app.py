@@ -121,3 +121,8 @@ with hs.html("details"):
         hs.text("How to export from bambulab")
     with hs.html("img", src="https://raw.githubusercontent.com/conradbez/auto_3dprint_web_gui/refs/heads/main/export_tutorial.gif", alt="How to export from bambulab", style="display: block; width: 100%; height: auto; margin-top: 10px;"):
         pass
+
+with hs.html("details"):
+    with hs.html("summary", style="cursor: pointer; font-weight: bold;"):
+        hs.text("About")
+    hs.markdown("[Github repo](https://github.com/conradbez/auto_3dprint_web_gui/)")
