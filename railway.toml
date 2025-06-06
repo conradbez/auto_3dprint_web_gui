@@ -1,0 +1,4 @@
+[build]
+
+[deploy]
+startCommand = "hstream run app.py"
