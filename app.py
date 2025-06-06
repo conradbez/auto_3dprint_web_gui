@@ -13,7 +13,7 @@ with hs.html("article", _class="warning", style="border-left: 4px solid #ffc107;
 
 with hs.html("details"):
     with hs.html("summary", style="cursor: pointer; font-weight: bold;"):
-        hs.text("Usage")
+        hs.text("Usage instructions:")
     hs.markdown('[Watch Factorian Designs video first](https://www.youtube.com/watch?v=SFd0sxN2eqk)')
     hs.markdown("""
     - **1. Select Printer**: Choose your printer model (A1 mini or A1)
