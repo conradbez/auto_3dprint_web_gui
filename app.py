@@ -6,6 +6,23 @@ import tempfile
 from hstream import hs
 import base64
 
+hs.markdown(f"# Auto eject and loop Bambu A1 and A1 mini prints")
+hs.markdown("Automatically add start/end blocks and duplicate G-code sequences for repeated printing")
+with hs.html("article", _class="warning", style="border-left: 4px solid #ffc107; background: #fffbe6; padding: 1em; margin-bottom: 1.5em;"):
+    hs.markdown("⚠️ **Warning:** This tool modifies your G-code.3mf file by injecting custom start/end blocks and duplicating the print sequence. Always review the output and test carefully before using on your printer.")
+
+with hs.html("details"):
+    with hs.html("summary", style="cursor: pointer; font-weight: bold;"):
+        hs.text("Usage")
+    hs.markdown('[Watch Factorian Designs video first](https://www.youtube.com/watch?v=SFd0sxN2eqk)')
+    hs.markdown("""
+    - **1. Select Printer**: Choose your printer model (A1 mini or A1)
+    - **2. Upload 3MF File**: Select your BambuLab-generated `.gcode.3mf` file (see `How to export from bambulab` below)
+    - **3. Set Duplication**: Choose how many times to repeat the G-code sequence (default=1 for single print)
+    - **4. Process File**: Click the button to inject start/end blocks and duplicate the pattern
+    - **5. Download**: Get modified 3MF with `_modified` suffix for printer-ready looping
+    """)
+
 def process_3mf(uploaded_file, start_block, end_block, repeat_count):
     # Create persistent tmp directory if it doesn't exist
     persistent_tmp = "tmp"
@@ -58,40 +75,27 @@ def process_3mf(uploaded_file, start_block, end_block, repeat_count):
         # Return the persistent file path
         return out_3mf, None
 
-# Load start/end blocks once
-with open("Start_A1_Mini.txt", "r", encoding="utf-8") as f:
-    start_block = f.read()
-with open("End_A1_Mini.txt", "r", encoding="utf-8") as f:
-    end_block = f.read()
-
-
-hs.markdown("# Auto eject and loop Bambu A1 *mini* prints")
-hs.markdown("Automatically add start/end blocks and duplicate G-code sequences for repeated printing")
-with hs.html("article", _class="warning", style="border-left: 4px solid #ffc107; background: #fffbe6; padding: 1em; margin-bottom: 1.5em;"):
-    hs.markdown("⚠️ **Warning:** This tool modifies your G-code.3mf file by injecting custom start/end blocks and duplicating the print sequence. Always review the output and test carefully before using on your printer.")
-
-with hs.html("details"):
-    with hs.html("summary", style="cursor: pointer; font-weight: bold;"):
-        hs.text("Usage")
-    hs.markdown('[Watch Factorian Designs video first](https://www.youtube.com/watch?v=SFd0sxN2eqk)')
-    hs.markdown("""
-    - **1. Upload 3MF File**: Select your BambuLab-generated `.gcode.3mf` file (see `How to export from bambulab` below)
-    - **2. Set Duplication**: Choose how many times to repeat the G-code sequence (default=1 for single print)
-    - **3. Process File**: Click the button to inject start/end blocks and duplicate the pattern
-    - **4. Download**: Get modified 3MF with `_modified` suffix for printer-ready looping
-    """)
-
-# hs.markdown("### Usage Steps")
-# hs.markdown('[Watch Factorian Designs video first](https://www.youtube.com/watch?v=SFd0sxN2eqk)')
-# hs.markdown("""
-# - **1. Upload 3MF File**: Select your BambuLab-generated `.gcode.3mf` file (see `How to export from bambulab` below)
-# - **2. Set Duplication**: Choose how many times to repeat the G-code sequence (default=1 for single print)
-# - **3. Process File**: Click the button to inject start/end blocks and duplicate the pattern
-# - **4. Download**: Get modified 3MF with `_modified` suffix for printer-ready looping
-# """)
 hs.markdown("---")
 hs.markdown("## Get going ✈️")
-uploaded_file = hs.file_upload("Upload your gcode.3mf file")
+
+# Printer selection dropdown
+hs.markdown("Select printer:")
+printer_model = hs.select_box(label=["A1 mini", "A1"], default_value=["A1 mini"])
+
+# Load start/end blocks based on selection
+if printer_model == "A1 mini":
+    start_file = "Start_A1_Mini.txt"
+    end_file = "End_A1_Mini.txt"
+else:  # A1
+    start_file = "Start_A1.txt"
+    end_file = "End_A1.txt"
+
+with open(start_file, "r", encoding="utf-8") as f:
+    start_block = f.read()
+with open(end_file, "r", encoding="utf-8") as f:
+    end_block = f.read()
+
+uploaded_file = hs.file_upload("Upload your gcode.3mf file:")
 repeat_count = int(hs.number_input("How many times to duplicate the G-code?", default_value=1, min_value=1, max_value=20))
 
 if uploaded_file and hs.button('Process and Download'):
@@ -111,7 +115,6 @@ if uploaded_file and hs.button('Process and Download'):
                         download='gcode_modified.3mf',
                         style="background-color: #4CAF50; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; display: inline-block;"):
                 hs.text("📥 Download Modified 3MF")
-
 
 with hs.html("details"):
     with hs.html("summary", style="cursor: pointer; font-weight: bold;"):
