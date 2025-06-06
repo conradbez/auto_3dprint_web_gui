@@ -1,0 +1,5 @@
+.venv
+.DS_Store
+unzipped_contents/
+# test3mffile.gcode.3mf
+test3mffile.gcode_modified.3mf
