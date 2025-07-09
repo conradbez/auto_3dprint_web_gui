@@ -90,7 +90,9 @@ elif printer_model == "A1":  # A1
     start_file = "Start_A1.txt"
     end_file = "End_A1.txt"
 else:
-    raise "No printer selected"
+    hs.markdown("Error, please select printer")
+
+    # raise "No printer selected"
 
 hs.markdown(printer_model+' selected')
 
