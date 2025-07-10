@@ -80,21 +80,19 @@ hs.markdown("## Get going ✈️")
 
 # Printer selection dropdown
 hs.markdown("Select printer:")
-printer_model = hs.select_box(label=["A1 mini", "A1"], default_value=["A1 mini"])
+printer_model = hs.select_box(label=["A1 mini", "A1"], default_value="A1 mini")
 
 # Load start/end blocks based on selection
-if printer_model == "A1 mini":
-    start_file = "Start_A1_Mini.txt"
-    end_file = "End_A1_Mini.txt"
-elif printer_model == "A1":  # A1
+if printer_model == "A1":  # A1
     start_file = "Start_A1.txt"
     end_file = "End_A1.txt"
+elif printer_model == "A1 mini":  # A1
+    start_file = "Start_A1_Mini.txt"
+    end_file = "End_A1_Mini.txt"
 else:
-    hs.markdown("Error, please select printer")
+    raise "no printer selected"
 
-    # raise "No printer selected"
-
-hs.markdown(printer_model+' selected')
+hs.markdown("`"+str(printer_model) +'` selected')
 
 with open(start_file, "r", encoding="utf-8") as f:
     start_block = f.read()
@@ -134,13 +132,13 @@ with hs.html("details"):
     hs.markdown("[Github repo](https://github.com/conradbez/auto_3dprint_web_gui/)")
 
 
-with hs.html("details"):
-    with hs.html("summary", style="cursor: pointer; font-weight: bold;"):
-        hs.text("Debug")
-    hs.markdown("file_obj")
-    file_obj
-    hs.markdown("start_block")
-    start_block
-    hs.markdown("end_block")
-    end_block
+# with hs.html("details"):
+    # with hs.html("summary", style="cursor: pointer; font-weight: bold;"):
+    #     hs.text("Debug")
+    # hs.markdown("file_obj")
+    # hs.markdown(file_obj)
+    # hs.markdown("start_block")
+    # hs.markdown(start_block)
+    # hs.markdown("end_block")
+    # hs.markdown(end_block)
     
