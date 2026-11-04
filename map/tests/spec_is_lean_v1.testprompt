@@ -1,0 +1,10 @@
+{# Landmark (from a real drift): an earlier spec had 6 async endpoints, a job
+   queue and a warning-acknowledgement flow — too heavy for v1. #}
+Spec API: {{ ref('spec').api | tojson }}
+Spec feature names: {{ ref('spec').features | map(attribute='name') | list | tojson }}
+
+First, count the endpoints and note whether any implies a job queue, polling
+or a build-id lifecycle. Then check whether any feature is the research node.
+Fail if: more than 3 endpoints, OR any queue/polling/lifecycle, OR a research feature.
+
+Reply with only JSON: {"results": "pass"} or {"results": "fail"}.

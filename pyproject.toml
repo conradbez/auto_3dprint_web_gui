@@ -1,0 +1,12 @@
+[project]
+name = "auto-3dprint-web-gui"
+version = "0.1.0"
+requires-python = ">=3.13"
+dependencies = [
+    "fastapi>=0.162.0",
+    "openai>=3.42.1",
+    "promptmap[extras]",
+    "python-multipart>=0.0.33",
+    "trimesh>=5.2.0",
+    "uvicorn>=0.54.0",
+]

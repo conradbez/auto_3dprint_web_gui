@@ -1,0 +1,10 @@
+{# Landmark: the final build step reports its whole test suite passing, including the
+   end-to-end tests on the real A1 export that web.prompt requires. #}
+Final build step's report:
+{{ ref('web').output }}
+
+First, find what it says about the test run and about the end-to-end tests on
+`fixtures/real_a1.gcode.3mf`. Pass only if it reports all tests passing AND those
+end-to-end tests exist (generate N=3, simulate, check).
+
+Reply with only JSON: {"results": "pass"} or {"results": "fail"}.

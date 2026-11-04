@@ -1,0 +1,22 @@
+{# Step v2: the OrcaSlicer plugin, built on v1's tree. Thin wrapper only — if the
+   plugin needs eject logic that autoeject/ doesn't have, that's a spec problem,
+   not something to re-implement here. #}
+{{ config(model_type="coding_agent", promptfiles="web", agent_cost_limit=5) }}
+{{ ref('build_rules') }}
+
+Your step (v2): add `orca_plugin/`, an OrcaSlicer 2.5 plugin implementing the v2 spec below.
+
+1. Use only the plugin type, hooks, signatures and manifest fields named in the v2 spec.
+   Do not invent `orca` API calls; where the spec lists an open question, stub it with a
+   clear `NotImplementedError("open question: ...")` and say so in your summary.
+2. Every eject decision calls `autoeject/` (check, build_end_block, inject_end_block,
+   loop_3mf). No copied or rewritten eject logic.
+3. Package it as the spec's `packaging` says, so the folder can be installed into Orca as-is.
+4. Tests in `tests/test_orca_plugin.py` with a fake `orca` module matching the spec's
+   signatures: the plugin registers, a 40 mm cube passes the check, and running the
+   post-slice step on `fixtures/real_a1.gcode.3mf` with N=3 gives 3 push moves.
+5. Do not change `app/` or v1 behaviour. Append an "OrcaSlicer plugin" section to README.md
+   (install, use, known limits).
+
+v2 spec:
+{{ ref('spec_v2') | tojson }}

@@ -1,0 +1,14 @@
+{# One job: raw Brave search hits — the only web evidence research sees.
+   No LLM. URLs sit under SOURCES headings so the citation test counts them. #}
+{{ config(model_type="template") }}
+{% for q in [
+  "Bambu A1 auto eject gcode push off loop",
+  "3D printer auto ejection plate changer print farm Bambu",
+  "Bambu A1 push off print failure too short tipping bed cooldown release",
+  "OrcaSlicer BambuStudio command line slice STL docker machine_end_gcode",
+] %}
+QUERY: {{ q }}
+SOURCES:
+{{ rag_brave_search(q, count=6) | join("\n\n") }}
+
+{% endfor %}

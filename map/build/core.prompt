@@ -1,0 +1,22 @@
+{# Step 1/4: the pure-Python core. Everything else builds on these functions,
+   and a future OrcaSlicer plugin will wrap them, so no web or slicer imports. #}
+{{ config(model_type="coding_agent", promptfiles="seed", agent_cost_limit=5) }}
+{{ ref('build_rules') }}
+
+Your step: create the `autoeject/` core package.
+
+1. `autoeject/ejectability.py`: `check(stl_bytes) -> Report` using trimesh.
+   Implement the spec's ejectability_rules exactly (thresholds as named constants).
+   Report and its rules are dataclasses with attributes (verdict pass|warn|fail;
+   rules: id, measured, threshold, verdict, reason) plus `.to_dict()` for JSON.
+2. `autoeject/end_block.py`:
+   - `build_end_block(params) -> str`: `profiles/a1_end.gcode` with the spec's
+     eject_block_params (bed heat/cool temps, hold times, cycle count) substituted,
+     slicer placeholders left in for the slicer. Invalid params raise ValueError.
+   - `evaluate_end_block(block, values) -> str`: fill the placeholders this template
+     uses (`max_layer_z`, `first_layer_center_no_wipe_tower[1]`, `spiral_mode`,
+     `print_sequence`, and its `{if}/{else}/{endif}` blocks) from a dict, for files that
+     were sliced elsewhere. Any other placeholder raises ValueError (fail closed).
+3. Tests with STL fixtures generated in-test by trimesh (cube 40 mm, cube 20 mm,
+   tall thin rod, part off the bed). A 20 mm cube must NOT fail. Evaluating with
+   max_layer_z=20.08 takes the nozzle-push branch (`G1 Z1`); 60 takes `G1 Z20`.

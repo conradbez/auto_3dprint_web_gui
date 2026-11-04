@@ -1,0 +1,29 @@
+{# Shared contract for every build agent. No LLM — a template every agent refs. #}
+{{ config(model_type="template") }}
+Project: web app for the Bambu Lab A1 (A1 only, 256 x 256 mm bed) that loops N prints
+of one part, pushing each finished part off the bed (Factorian Designs method).
+
+Rules for every build step:
+- Python 3.13, managed with uv: one root `pyproject.toml`; `uv run pytest -q` must pass at the end of your step.
+- Package layout: `autoeject/` (pure Python core, no web imports), `app/` (FastAPI + static UI), `tests/`.
+- A1 only. No printer parameter anywhere; do not add A1 mini or other printers.
+- `profiles/a1_end.gcode` is the Factorian eject template. It contains BambuStudio
+  placeholders (`{max_layer_z}`, `{if ...}`). Printer G-code must never contain them unevaluated.
+- `fixtures/real_a1.gcode.3mf` is a REAL Bambu Studio A1 export (20.08 mm tall part,
+  72 layers). Every module that reads or writes .gcode.3mf must have a test on this file,
+  not only on synthetic archives. Facts about it (verified):
+  * plate G-code is `Metadata/plate_1.gcode`, with `Metadata/plate_1.gcode.md5` (uppercase hex).
+    Any change to the G-code must rewrite that md5.
+  * `; HEADER_BLOCK` gives `; max_z_height: 20.08`; `; CONFIG_BLOCK` holds settings as `;` comment
+    lines that legitimately contain `{if ...}` text. Placeholder checks skip `;` comment lines.
+  * Bambu's evaluated stock end block runs from `; MACHINE_END_GCODE_START` to `; EXECUTABLE_BLOCK_END`.
+    It does NOT push the part off. The eject block replaces exactly that span.
+- Earlier drift to avoid: a step returned dicts while the next read attributes (500 on
+  every request), and tests passed because they mocked across the boundary. Tests that
+  cross a module boundary call the real function, not a stub.
+- No test may need a printer, the network, or the real BambuStudio binary (fake only the slicer CLI).
+- Keep earlier steps' tests passing. Do not rewrite earlier modules unless your step needs it.
+- Finish with a 5-line summary: files added, how to run, what is stubbed or not done.
+
+Binding v1 spec (implement only the parts your step names; A1 only overrides any A1 mini mention):
+{{ ref('spec') | tojson }}

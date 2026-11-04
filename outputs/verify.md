@@ -1,0 +1,1 @@
+{"returncode": 2, "passed": false, "tail": "...................................................                      [100%]\n51 passed in 4.41s\n/private/var/folders/9q/22sbzpn16rng7bfbch93n2nr0000gn/T/tmpwc13peds/.venv/bin/python: can't open file '/Users/conradbez/Documents/auto_3dprint_web_gui/checks/smoke_v1.py': [Errno 2] No such file or directory\n"}

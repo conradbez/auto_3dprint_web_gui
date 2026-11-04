@@ -1,0 +1,37 @@
+{# One job: a lean, buildable v1 spec. Coding agents implement it next, so every
+   feature needs acceptance checks runnable without a printer. #}
+{{ config(output_format="json") }}
+Write the v1 build spec for this project. The README's scope table is binding:
+anything marked Exclude or Defer must appear only under "out_of_scope". Where the
+research contradicts a README decision, keep the decision and record the
+conflict under "open_questions" (do not silently change it).
+
+Lessons from earlier drafts (follow them):
+- Under 32 mm is NOT a fail: the end block switches to a nozzle push
+  (`{if max_layer_z > 41} ... {else} G1 Z1`). Height may only warn, never fail.
+- Lean v1: at most 3 synchronous API endpoints, no job queue, no polling, no
+  acknowledgement flow. At most 4 acceptance checks per feature.
+- Features are things the running app does. The research node is a build-time
+  input, not a feature.
+- Be terse: one sentence per field.
+
+README:
+{{ rag_file('README.md')[0] }}
+
+Research (cited):
+{{ ref('research') | tojson }}
+
+Return only JSON:
+{
+  "features": [
+    {"id": "F1", "name": "...", "readme_row": "exact Item text from the scope table",
+     "behaviour": "what the user sees", "acceptance": ["check runnable in CI, no printer"]}
+  ],
+  "ejectability_rules": [
+    {"rule": "...", "threshold": "number + unit", "verdict_if_broken": "fail | warn", "source": "url or README"}
+  ],
+  "eject_block_params": [{"name": "...", "default": "concrete value", "ui_editable": true}],
+  "api": [{"method": "POST", "path": "/...", "in": "...", "out": "..."}],
+  "out_of_scope": ["..."],
+  "open_questions": ["..."]
+}

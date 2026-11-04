@@ -1,0 +1,12 @@
+{# Landmark: the spec never builds what the README excluded or deferred. #}
+README:
+{{ rag_file('README.md')[0] }}
+
+Spec features:
+{{ ref('spec').features | tojson }}
+
+First, list the README scope-table Items marked Exclude or Defer.
+Then check: does any spec feature implement one of them (by readme_row or by
+behaviour)? If yes, the step failed.
+
+Reply with only JSON: {"results": "pass"} or {"results": "fail"}.

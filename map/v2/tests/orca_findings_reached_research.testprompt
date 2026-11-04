@@ -1,0 +1,14 @@
+{# Landmark (from a real drift): the findings agent saved its 33 KB answer to a file,
+   research received only a filename + hash, returned all-MISSING, and the citation
+   gate still passed (MISSING is allowed). Evidence must reach research as text. #}
+Evidence research received:
+{{ ref('orca_findings') }}
+
+Research plugin_types: {{ ref('orca_research').plugin_types | tojson }}
+
+First, check whether the evidence above contains at least one SOURCES url with quoted
+excerpts (lines starting with ">"), rather than only a filename, hash or empty text.
+Then check whether research found at least one plugin type that is not MISSING.
+Fail if either is false.
+
+Reply with only JSON: {"results": "pass"} or {"results": "fail"}.

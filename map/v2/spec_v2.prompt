@@ -1,0 +1,32 @@
+{# One job: the v2 delta spec — only what changes on top of v1. The plugin agent
+   builds from v1's tree and this spec, so every API it names must come from
+   orca_research, and v1 behaviour must stay unchanged. #}
+{{ config(output_format="json") }}
+v2 adds an OrcaSlicer plugin for the Bambu Lab A1 on top of the v1 web app. The
+plugin is a thin wrapper around v1's `autoeject/` package: same ejectability rules,
+same eject block, same N-copy loop. The web app does not change.
+
+Rules:
+- Use only plugin API names, hooks and manifest fields listed in the research. If the
+  research marks something MISSING, put it in "open_questions"; do not design around a guess.
+- If no hook can modify G-code after slicing, say so in "blocking" and design the
+  closest supported flow instead (e.g. a Script plugin the user runs on the sliced file).
+- At most 4 features, at most 4 acceptance checks each, runnable without OrcaSlicer
+  installed (tests fake the `orca` module to the researched signatures).
+
+v1 spec (binding for behaviour):
+{{ ref('spec') | tojson }}
+
+What v1 actually built (final build agent's report):
+{{ ref('web').output }}
+
+Plugin API research (cited):
+{{ ref('orca_research') | tojson }}
+
+Return only JSON:
+{
+  "plugin_type": "exact type from research", "hooks_used": [{"name": "...", "does": "...", "url": "..."}],
+  "features": [{"id": "P1", "name": "...", "behaviour": "...", "acceptance": ["..."]}],
+  "packaging": {"manifest": "...", "how_autoeject_ships": "vendored | dependency | ...", "url": "..."},
+  "unchanged_from_v1": ["..."], "blocking": ["..."], "out_of_scope": ["..."], "open_questions": ["..."]
+}

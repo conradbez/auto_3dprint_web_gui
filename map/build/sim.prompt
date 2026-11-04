@@ -1,0 +1,21 @@
+{# Step 3/4: box-level motion simulation. It answers one question the ejectability
+   rules can't: does the eject block's push actually sweep through the part?
+   Earlier drift: it replayed the whole print with the print's own toolpath as the
+   "part" and reported a collision on every move. It replays the eject block only. #}
+{{ config(model_type="coding_agent", promptfiles="slicer", agent_cost_limit=5) }}
+{{ ref('build_rules') }}
+
+Your step: `autoeject/sim.py`.
+
+1. `simulate(eject_gcode_evaluated, part_bbox) -> SimReport`: parse G0/G1/G90/G91 moves
+   (X, Y, Z, F) of the eject block only, and replay them with axis-aligned boxes:
+   toolhead, gantry bar (spans X at nozzle height), bed (moves in Y), part (on the bed,
+   moves with it). `part_bbox` is the part's real size: from the STL, or for a pre-sliced
+   file from `; max_z_height` plus the XY extent of the first layer's extrusion moves.
+2. Report: `pushed` (gantry or nozzle box swept through the part box), `collisions`
+   (any box hitting the part outside the push move), and the move list as
+   [{i, x, y, z}] for the UI to animate. Unknown commands are ignored and counted.
+3. Box dimensions are named constants marked "approximate, not measured".
+4. Tests: a 40 mm cube is pushed by the gantry; a 20 mm cube by the nozzle; a block with
+   the push line removed reports pushed=False; `fixtures/real_a1.gcode.3mf` after
+   inject_end_block reports pushed=True with no collisions.

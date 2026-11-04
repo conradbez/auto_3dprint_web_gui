@@ -1,0 +1,45 @@
+{# One job: cited, verbatim evidence about the OrcaSlicer 2.5 plugin API.
+   A bash-only agent (mini-swe-agent since promptmap 0.7; no MCP). Brave's Free
+   plan returns snippets only (llm/context and extra_snippets are not in the plan), so
+   the agent fetches pages itself: curl first, then headless Playwright, then Chrome
+   driven from bash. The API is alpha, so model memory is worthless: quotes only. #}
+{{ config(model_type="agent", agent_step_limit=80, agent_cost_limit=1) }}
+Collect evidence for someone writing an OrcaSlicer 2.5 plugin that, after slicing a
+Bambu Lab A1 job, replaces the end G-code and repeats the print N times. They will
+only trust what you quote, so quote; do not summarise from memory.
+
+Tools (bash; `$BRAVE_API_KEY` is set; Brave allows 1 request/second, so `sleep 1.1` between searches):
+- Search: `curl -s -G https://api.search.brave.com/res/v1/web/search --data-urlencode "q=QUERY" -H "X-Subscription-Token: $BRAVE_API_KEY" -H "Accept: application/json"` -> `.web.results[].url/.description`
+- Fetch, in order, moving on only if the previous one fails or returns under ~1500 chars of page text:
+  1. `curl -sL URL` (most wiki pages are plain HTML; the article is inside `<main>`)
+  2. headless Playwright: `PW_CORE=$(dirname $(node -e "console.log(require.resolve('playwright-core/package.json',{paths:['$(npm root -g)/@playwright/mcp']}))"))`, then a node script doing `require(process.env.PW_CORE).chromium.launch({channel:"chrome",headless:true})`, `page.goto(URL,{waitUntil:"networkidle"})`, print `page.content()`
+  3. Chrome from bash: `"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new --disable-gpu --virtual-time-budget=8000 --dump-dom URL`
+  Strip tags to text (python3 is available) and read the `<main>` part.
+
+Steps:
+1. Search for the OrcaSlicer plugin system, plugin development, plugin API reference
+   (registry, slicing pipeline, host, host UI, script) and the 2.5.0 alpha release notes.
+   Prefer orcaslicer.com/wiki and github.com/OrcaSlicer.
+2. Fetch and read each relevant page (start with these, then follow links that matter):
+   https://www.orcaslicer.com/wiki/developer_reference/plugin_development/plugin_system
+   https://www.orcaslicer.com/wiki/developer_reference/plugin_development/plugin_development
+   https://www.orcaslicer.com/wiki/developer_reference/plugin_development/api_reference/slicing
+   https://www.orcaslicer.com/wiki/developer_reference/plugin_development/api_reference/registry
+3. Record verbatim excerpts covering: plugin types, the manifest / PEP 723
+   `[tool.orcaslicer.plugin]` fields, every hook or callback with its exact signature,
+   how a plugin gets user parameters, how it loads dependencies, sandbox prompts, and
+   anything about reading or modifying G-code after slicing.
+4. If a page will not load by any of the three methods, or a topic is covered nowhere,
+   write MISSING for it.
+
+Deliver the answer as your final submitted message, not as a file: do not write to
+`outputs/` (an earlier run saved answer.txt there and the next step saw only its hash).
+Answer in this format only (one block per page, then the gaps):
+
+SOURCES:
+- <url> (fetched with: curl | playwright | chrome)
+EXCERPTS:
+> <verbatim text>
+
+MISSING:
+- <topic>: <where you looked>

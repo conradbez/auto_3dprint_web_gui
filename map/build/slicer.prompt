@@ -1,0 +1,22 @@
+{# Step 2/4: STL or pre-sliced file -> looped .gcode.3mf with the eject block.
+   Highest-risk piece (headless BambuStudio), so the slicer sits behind one function
+   with a fake-CLI test, and the pre-sliced path is proven on a real export. #}
+{{ config(model_type="coding_agent", promptfiles="core", agent_cost_limit=5) }}
+{{ ref('build_rules') }}
+
+Your step: `autoeject/slicer.py` and `autoeject/loop.py`, plus a `Dockerfile`.
+
+1. `slice_stl(stl_bytes, end_block) -> bytes (.gcode.3mf)`: calls the BambuStudio CLI
+   (path from env `BAMBU_CLI`) with the stock A1 profile, passing `end_block` as
+   `machine_end_gcode` by patching the profile JSON (not shell args). Do not invent
+   profile contents: load the CLI's own installed system profiles at runtime by name
+   (`Bambu Lab A1 0.4 nozzle`) and patch only machine_end_gcode.
+2. `inject_end_block(gcode_3mf_bytes, end_block_template) -> bytes`: for a pre-sliced
+   file. Read values from its header/config, `evaluate_end_block`, and replace the span
+   `; MACHINE_END_GCODE_START` .. `; EXECUTABLE_BLOCK_END` with it. Rewrite the md5.
+3. `loop_3mf(gcode_3mf_bytes, n) -> bytes`: repeat the executable block N times inside
+   the archive, rewrite the md5, reject unevaluated placeholders in non-comment lines.
+4. `Dockerfile` installing a pinned BambuStudio CLI and running uvicorn (not built in CI; keep it commented).
+5. Tests on `fixtures/real_a1.gcode.3mf`: inject then loop N=3 gives 3 push moves
+   (`G1 Y-0.5`), the configured heat/cool temps, a matching md5, and no raw placeholders.
+   Plus the fake-CLI test for slice_stl.

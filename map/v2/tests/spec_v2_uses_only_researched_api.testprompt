@@ -1,0 +1,14 @@
+{# Landmark: the v2 spec designs only around hooks the research found, and keeps the
+   web app unchanged. #}
+Research hooks: {{ ref('orca_research').hooks | tojson }}
+Research plugin types: {{ ref('orca_research').plugin_types | tojson }}
+
+v2 spec plugin_type: {{ ref('spec_v2').plugin_type | tojson }}
+v2 spec hooks_used: {{ ref('spec_v2').hooks_used | tojson }}
+v2 spec features: {{ ref('spec_v2').features | tojson }}
+
+First, list the hook names and plugin types the research found. Then check the spec:
+fail if plugin_type is not one of the researched types, if any hooks_used name is not
+a researched hook, or if any feature changes the web app.
+
+Reply with only JSON: {"results": "pass"} or {"results": "fail"}.

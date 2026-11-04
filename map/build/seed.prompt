@@ -1,0 +1,5 @@
+{# One job: hand the first agent the repo files it can't see from its scratch copy:
+   the Factorian A1 start+end G-code templates (slicer placeholders intact) and a real
+   A1 Bambu Studio export in fixtures/ (the only real-world input the agents see). #}
+{{ config(model_type="local_dir", path="seed") }}
+seed

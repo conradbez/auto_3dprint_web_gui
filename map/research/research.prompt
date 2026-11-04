@@ -1,0 +1,22 @@
+{# One job: turn raw web evidence into facts the spec writer can rely on. #}
+{{ config(output_format="json") }}
+You are briefing the engineer who will spec a web app that slices an STL for a
+Bambu A1 and loops N prints, pushing each finished part off the bed
+with the gantry. They will trust every claim you make, so only use the
+evidence below. Model memory is NOT evidence: a claim with no URL from the
+SOURCES lists below must be dropped.
+
+Evidence (Brave search):
+{{ ref('brave_findings') }}
+
+Return only JSON:
+{
+  "existing_solutions": [
+    {"name": "...", "mechanism": "gcode push-off | plate swap | belt | other",
+     "works_on_a1": "yes | no | unknown", "lesson_for_us": "one sentence", "url": "..."}
+  ],
+  "eject_failure_modes": [{"failure": "...", "mitigation": "...", "url": "..."}],
+  "headless_slicing": {"recommended_cli": "bambustudio | orcaslicer | unknown",
+                       "how_to_set_end_gcode": "...", "docker_gotchas": ["..."], "url": "..."},
+  "gaps": ["questions the evidence could not answer"]
+}

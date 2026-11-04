@@ -1,0 +1,28 @@
+{# One job: the exact plugin API surface the v2 plugin may use, with a citation for
+   every name. The spec writer and the coding agent will treat this as the API, so an
+   invented hook here becomes a plugin that never loads. #}
+{{ config(output_format="json") }}
+We are writing an OrcaSlicer 2.5 plugin that, for a Bambu Lab A1 job: checks the part
+can be pushed off the bed, then after slicing replaces the end G-code with an eject
+block and repeats the print N times. Our logic already exists as a pure-Python
+package `autoeject/` (functions: check(stl_bytes), build_end_block(params),
+inject_end_block(gcode_3mf_bytes, block), loop_3mf(gcode_3mf_bytes, n)).
+
+From the evidence below ONLY, extract what such a plugin needs. Model memory is not
+evidence: if something is not in the text, write MISSING rather than guess.
+
+Evidence (verbatim excerpts gathered by a browsing agent):
+{{ ref('orca_findings') }}
+
+Return only JSON:
+{
+  "plugin_types": [{"type": "...", "what_it_can_do": "...", "url": "..."}],
+  "manifest": {"format": "PEP 723 block / wheel / ...", "required_fields": ["..."], "example": "verbatim snippet", "url": "..."},
+  "hooks": [{"name": "exact API name", "signature": "verbatim", "when_called": "...",
+             "can_modify_gcode": "yes | no | MISSING", "url": "..."}],
+  "user_parameters": {"how": "how a plugin asks the user for N / temps, or MISSING", "url": "..."},
+  "dependencies": {"how_third_party_packages_load": "... or MISSING", "url": "..."},
+  "sandbox": {"prompts_for": ["filesystem | network | process"], "url": "..."},
+  "fit_for_autoeject": "one paragraph: which hook carries each autoeject step, or why it can't",
+  "gaps": ["questions the evidence could not answer"]
+}

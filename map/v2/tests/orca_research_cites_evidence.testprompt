@@ -1,0 +1,14 @@
+{# Landmark: the plugin API is alpha and post-dates most model training, so the main
+   risk is an invented hook. Every hook name research reports must appear verbatim in
+   the fetched evidence. #}
+Raw evidence (agent's verbatim excerpts):
+{{ ref('orca_findings') }}
+
+Research hooks: {{ ref('orca_research').hooks | tojson }}
+Research manifest: {{ ref('orca_research').manifest | tojson }}
+
+First, list each hook "name" and each manifest required field from the research.
+For each, find it verbatim in the raw evidence. Fail if any one is absent from the
+evidence (MISSING entries are fine; a confident name with no source is not).
+
+Reply with only JSON: {"results": "pass"} or {"results": "fail"}.
