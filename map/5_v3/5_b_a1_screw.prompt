@@ -1,0 +1,10 @@
+{{ config(model_type="coding_agent", agent_step_limit=20, agent_cost_limit=1, promptfiles="a1_model") }}
+
+Build a screw with a front "pusher" that is spun by high throuque dc D-shaft moter (normal small motor). Only build the 3d model in build123d for 3d printing.
+
+There are other engineers working on the rest.
+
+you should do 
+- motor holder
+- shaft D connector with great
+- spinning "screw" gear with front as wide as the A1 build plate

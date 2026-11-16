@@ -1,4 +1,5 @@
-"""promptmap LLM backend: DeepSeek V4.1 Flash via OpenRouter (key: OPENROUTER_API_KEY in .env).
+"""promptmap LLM backend: OpenRouter, models from settings.yml (key: OPENROUTER_API_KEY in .env).
+Aliases: low = DeepSeek V4.1 Flash (default), medium = Kimi K3.1 Pro.
 
 Also registers one project model kind:
   local_dir   config(path="seed")  -> promptmap.Dir of a repo folder (input tree for agents)
@@ -19,19 +20,38 @@ async def local_dir(rendered, call):
     return promptmap.Dir(ROOT / call.spec.config["path"], name=call.spec.name)
 
 
-MODEL = "deepseek/deepseek-v4.1-flash"  # was moonshotai/kimi-k3.1-pro (out of credits, 40x pricier)
-# Agent kinds run mini-swe-agent (promptmap >= 0.7), which names models the litellm way.
-agent_model = f"openrouter/{MODEL}"
+# Models come from settings.yml: `model` is the default, `aliases` (low, medium)
+# are picked per model with {{ config(model="medium") }}.
+from promptmap.settings import load_settings, model_aliases, resolve_model
 
-# litellm has no price for v4.1-flash, and mini-swe-agent stops on an unknown cost.
-# Register OpenRouter's price (per token) so agent_cost_limit keeps working.
+_SETTINGS = load_settings(str(ROOT / "map"))
+_ALIASES = model_aliases(_SETTINGS)
+
+
+def _openrouter_model(name: str | None) -> str:
+    """config(model=...) (an alias or provider/model) -> OpenRouter model id."""
+    provider, model = resolve_model(_SETTINGS, model=name)
+    if provider != "openrouter":
+        raise ValueError(f"client.py only calls OpenRouter; {name or 'default'} resolved to {provider}/{model}")
+    return model
+
+
+# Agent kinds run mini-swe-agent (promptmap >= 0.7), which names models the litellm way.
+agent_model = "openrouter/" + _openrouter_model(None)
+
+# litellm has no price for these, and mini-swe-agent stops on an unknown cost.
+# Register OpenRouter's price (per token, 2026-11-16) so agent_cost_limit keeps working.
+_PRICES = {
+    "deepseek/deepseek-v4.1-flash": (0.14e-6, 0.42e-6),
+    "moonshotai/kimi-k3.1-pro": (0.2403e-6, 8.4023e-6),
+}
 try:
     import litellm
 
-    litellm.register_model({agent_model: {
-        "input_cost_per_token": 0.045e-6, "output_cost_per_token": 0.5e-6,
+    litellm.register_model({f"openrouter/{m}": {
+        "input_cost_per_token": i, "output_cost_per_token": o,
         "litellm_provider": "openrouter", "mode": "chat", "max_input_tokens": 1048576,
-    }})
+    } for m, (i, o) in _PRICES.items()})
 except ImportError:  # litellm only matters for agent kinds
     pass
 
@@ -50,7 +70,7 @@ def llm_call(prompt: str, files: list | None = None, config: dict | None = None)
     if (config or {}).get("output_format") == "json":
         kwargs["response_format"] = {"type": "json_object"}
     stream = client.chat.completions.create(
-        model=MODEL,
+        model=_openrouter_model((config or {}).get("model")),
         messages=[{"role": "user", "content": prompt}],
         stream=True,
         stream_options={"include_usage": True},

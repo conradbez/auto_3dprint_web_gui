@@ -1,0 +1,13 @@
+{# One job: raw Brave search hits — the only web evidence research sees.
+   No LLM. URLs sit under SOURCES headings so the citation test counts them. #}
+{{ config(model_type="template") }}
+{% for q in [
+  "Bambu A1 dimensions",
+  "Bambu A1 full machine dimensions",
+  "Bambu A1 3d model",
+] %}
+QUERY: {{ q }}
+SOURCES:
+{{ rag_brave_search(q, count=6) | join("\n\n") }}
+
+{% endfor %}

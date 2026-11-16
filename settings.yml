@@ -1,0 +1,7 @@
+# Model aliases: pick one per model with {{ config(model="medium") }} (or agent_model= / browser_model=).
+# client.py's llm_call resolves these; models without config(model=...) use `model` below.
+provider: openrouter
+model: low
+aliases:
+  medium: openrouter/moonshotai/kimi-k3.1-pro   # Kimi K3.1 Pro
+  low: openrouter/deepseek/deepseek-v4.1-flash  # DeepSeek V4.1 Flash

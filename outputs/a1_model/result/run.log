@@ -1,0 +1,7 @@
+Bambu Lab A1 model built.
+  parts          : 9
+  bounding box   : 385.0 x 410.0 x 430.0 mm
+  build plate    : 256 x 256 mm, top at Z=100 mm
+  STEP           : /private/var/folders/9q/22sbzpn16rng7bfbch93n2nr0000gn/T/promptmap-coding-agent-6ydjw6uu/a1_model/a1_model.step
+  STL            : /private/var/folders/9q/22sbzpn16rng7bfbch93n2nr0000gn/T/promptmap-coding-agent-6ydjw6uu/a1_model/a1_model.stl
+  dimensions JSON: /private/var/folders/9q/22sbzpn16rng7bfbch93n2nr0000gn/T/promptmap-coding-agent-6ydjw6uu/a1_model/a1_model_dimensions.json

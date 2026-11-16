@@ -1,0 +1,74 @@
+{
+  "units": "mm",
+  "origin": "centre of printer footprint; +Z up, +Y toward the back",
+  "build_plate": {
+    "width_x": 256.0,
+    "depth_y": 256.0,
+    "top_surface_z": 100.0,
+    "front_edge_y": -128.0
+  },
+  "base_frame_top_z": 70.0,
+  "motor": {
+    "type": "small high-torque DC motor with D-shaft",
+    "body_diameter": 28.0,
+    "body_length": 38.0,
+    "shaft_diameter": 5.0,
+    "shaft_length": 12.0,
+    "flat_offset_from_axis": 2.15,
+    "axis_position": [
+      45.0,
+      183.0,
+      150.0
+    ]
+  },
+  "gear_pair": {
+    "module": 2.0,
+    "screw_gear_teeth": 30,
+    "motor_gear_teeth": 15,
+    "face_width": 12.0,
+    "centre_distance": 45.0,
+    "mesh_y": 158.0
+  },
+  "lead_screw": {
+    "axis_x": 0.0,
+    "axis_z": 150.0,
+    "minor_radius": 6.0,
+    "major_radius": 13.0,
+    "pitch": 16.0,
+    "thread": "square",
+    "threaded_length_y": [
+      -150.0,
+      150.0
+    ],
+    "overall_length_y": [
+      -165.0,
+      190.0
+    ]
+  },
+  "pusher": {
+    "front_width_x": 256.0,
+    "sweep_plane_z": 100.0,
+    "blade_height": 35.0,
+    "travel_y": [
+      -128.0,
+      128.0
+    ]
+  },
+  "printed_parts": [
+    "motor_holder",
+    "d_shaft_coupler_gear",
+    "screw_gear",
+    "pusher_carriage",
+    "front_support",
+    "rear_support"
+  ],
+  "print_notes": [
+    "All parts exported as watertight STEP + STL, ready for slicing.",
+    "pusher_carriage 256 x 34 x 74 mm: front fits the A1 plate exactly (256 mm).",
+    "d_shaft_coupler_gear: 5 mm D-bore; an M3 set screw locks it to the shaft.",
+    "Printed square lead screw uses 0.75 mm radial/axial thread clearance.",
+    "screw_gear is 355 mm long: on A1 (256 mm build volume) print it in two",
+    "threaded segments, or print the whole screw on a larger machine.",
+    "Gear pair meshes at centre distance 45 mm (30T/15T, module 2)."
+  ]
+}

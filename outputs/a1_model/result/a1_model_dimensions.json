@@ -1,0 +1,22 @@
+{
+  "units": "mm",
+  "origin": "centre of footprint on the desk; +Z up, +Y toward the back",
+  "build_plate": {
+    "width_x": 256.0,
+    "depth_y": 256.0,
+    "top_surface_z": 100.0,
+    "thickness": 3.0
+  },
+  "machine_envelope": {
+    "width_x": 385.0,
+    "depth_y": 410.0,
+    "height_z": 430.0
+  },
+  "max_print_height_z": 256.0,
+  "screw_pusher_notes": "Pusher front must span the full plate width (256 mm in X). Sweep the pusher across the plate top surface at Z=100 mm; the plate front edge is at Y=-128 mm. Mount the motor holder on the base frame (top at Z=70 mm) clear of the moving bed carriage.",
+  "sources": {
+    "build_volume": "https://bambulab.com/en/a1/tech-specs",
+    "bed_size": "https://bambureviews.com/posts/bambu-build-volume-and-footprint/",
+    "machine_size": "https://filament2print.com/en/filament-fdm/2489-bambu-lab-a1-series-fdm-3d-printers.html"
+  }
+}
