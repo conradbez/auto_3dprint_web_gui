@@ -23,7 +23,12 @@ Rules for every build step:
   cross a module boundary call the real function, not a stub.
 - No test may need a printer, the network, or the real BambuStudio binary (fake only the slicer CLI).
 - Keep earlier steps' tests passing. Do not rewrite earlier modules unless your step needs it.
-- Finish with a 5-line summary: files added, how to run, what is stubbed or not done.
+- Finish with a 5-line summary: files added, how to run, the `uv run pytest -q` result
+  (e.g. "25 passed"), what is stubbed or not done.
+- Submit in a command of its own, never chained after pytest or anything else: the
+  submit marker must be the first line of that command's output, or the submission is
+  lost (an earlier run printed pytest output first, hit its step limit, and returned an
+  empty report). Run the tests one step earlier, then submit.
 
 Binding v1 spec (implement only the parts your step names; A1 only overrides any A1 mini mention):
 {{ ref('2_a_spec') | tojson }}

@@ -2,7 +2,7 @@
    end-to-end tests here are the v1 acceptance tests.
    Earlier drift: the pre-sliced path computed the eject block and never used it, so
    N copies would print on top of each other. Both paths must carry the eject block. #}
-{{ config(model_type="coding_agent", agent_step_limit=20, inherit_coding_folder="3_d_sim") }}
+{{ config(model_type="coding_agent", agent_step_limit=25, inherit_coding_folder="3_d_sim") }}
 {{ ref('3_a_build_rules') }}
 
 Your working tree is the current directory: it already holds the previous step's files. Run `ls` first. Never `cd` out of it or edit files anywhere else (an earlier run cd'd into the host project and overwrote its pyproject.toml).
