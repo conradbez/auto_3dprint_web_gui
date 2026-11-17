@@ -1,10 +1,14 @@
 {# Landmark (from a real drift): an earlier spec had 6 async endpoints, a job
    queue and a warning-acknowledgement flow — too heavy for v1. #}
-Spec API: {{ ref('spec').api | tojson }}
-Spec feature names: {{ ref('spec').features | map(attribute='name') | list | tojson }}
+Spec API: {{ ref('2_a_spec').api | tojson }}
+Spec feature names: {{ ref('2_a_spec').features | map(attribute='name') | list | tojson }}
 
-First, count the endpoints and note whether any implies a job queue, polling
-or a build-id lifecycle. Then check whether any feature is the research node.
-Fail if: more than 3 endpoints, OR any queue/polling/lifecycle, OR a research feature.
+First, count the endpoints. An endpoint that takes an upload and returns the file
+or JSON in the same response is synchronous and fine, whatever its name. Only an
+endpoint that returns a job/build id to poll later, or a separate status/result
+endpoint, counts as a queue or lifecycle. Then check whether any feature name is
+about doing research (a feature that merely uses research findings does not count).
+Fail only if: more than 3 endpoints, OR a queue/polling/lifecycle endpoint as
+defined above, OR a research feature. Otherwise pass.
 
 Reply with only JSON: {"results": "pass"} or {"results": "fail"}.

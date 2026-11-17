@@ -1,7 +1,7 @@
 {# Landmark (from a real drift): an earlier spec failed every part under 32 mm,
    but the end block nozzle-pushes short parts. Height may warn, never fail. #}
 Ejectability rules:
-{{ ref('spec').ejectability_rules | tojson }}
+{{ ref('2_a_spec').ejectability_rules | tojson }}
 
 First, find every rule about part height (Z). For each, would a solid 20 mm
 tall, 30 x 30 mm base cube get verdict "fail" from it?

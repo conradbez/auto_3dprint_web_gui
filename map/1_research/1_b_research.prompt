@@ -7,7 +7,7 @@ evidence below. Model memory is NOT evidence: a claim with no URL from the
 SOURCES lists below must be dropped.
 
 Evidence (Brave search):
-{{ ref('brave_findings') }}
+{{ ref('1_a_brave_findings') }}
 
 Return only JSON:
 {

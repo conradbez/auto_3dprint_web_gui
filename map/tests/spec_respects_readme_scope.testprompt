@@ -3,7 +3,7 @@ README:
 {{ rag_file('README.md')[0] }}
 
 Spec features:
-{{ ref('spec').features | tojson }}
+{{ ref('2_a_spec').features | tojson }}
 
 First, list the README scope-table Items marked Exclude or Defer.
 Then check: does any spec feature implement one of them (by readme_row or by

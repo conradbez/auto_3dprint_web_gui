@@ -1,4 +1,4 @@
-{{ config(model_type="agent", agent_step_limit=20, agent_cost_limit=1) }}
+{{ config(model_type="agent", agent_step_limit=4) }}
 
 You are briefing the engineer who will build a 3 model of bambu A1 1 printer
 They will trust every claim you make, so only use the
@@ -6,4 +6,4 @@ evidence below. Model memory is NOT evidence: a claim with no URL from the
 SOURCES lists below must be dropped.
 
 Evidence (Brave search):
-{{ ref('brave_a1_dimensions') }}
+{{ ref('1_c_brave_a1_dimensions') }}

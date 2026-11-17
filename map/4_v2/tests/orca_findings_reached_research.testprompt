@@ -2,9 +2,9 @@
    research received only a filename + hash, returned all-MISSING, and the citation
    gate still passed (MISSING is allowed). Evidence must reach research as text. #}
 Evidence research received:
-{{ ref('orca_findings') }}
+{{ ref('4_a_orca_findings') }}
 
-Research plugin_types: {{ ref('orca_research').plugin_types | tojson }}
+Research plugin_types: {{ ref('4_b_orca_research').plugin_types | tojson }}
 
 First, check whether the evidence above contains at least one SOURCES url with quoted
 excerpts (lines starting with ">"), rather than only a filename, hash or empty text.

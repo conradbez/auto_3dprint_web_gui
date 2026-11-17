@@ -1,0 +1,13 @@
+# Copy to any *.yml in map/ (every one there is combined).
+baselines:
+  default:            # every case starts from this unless it sets `extends`
+    promptfiles:
+      a1_start: <path/to/a1_start>
+      a1_end: <path/to/a1_end>
+      real_a1: <path/to/real_a1>
+
+cases:
+  - name: Baseline inputs
+  - name: <describe what this case checks>
+    promptfiles:
+      a1_start: <path/to/another>

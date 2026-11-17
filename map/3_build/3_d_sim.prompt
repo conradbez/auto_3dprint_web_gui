@@ -2,8 +2,8 @@
    rules can't: does the eject block's push actually sweep through the part?
    Earlier drift: it replayed the whole print with the print's own toolpath as the
    "part" and reported a collision on every move. It replays the eject block only. #}
-{{ config(model_type="coding_agent", promptfiles="slicer", agent_cost_limit=5) }}
-{{ ref('build_rules') }}
+{{ config(model_type="coding_agent", agent_step_limit=8, inherit_coding_folder="3_c_slicer") }}
+{{ ref('3_a_build_rules') }}
 
 Your step: `autoeject/sim.py`.
 

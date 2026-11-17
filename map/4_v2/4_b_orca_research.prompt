@@ -12,7 +12,7 @@ From the evidence below ONLY, extract what such a plugin needs. Model memory is 
 evidence: if something is not in the text, write MISSING rather than guess.
 
 Evidence (verbatim excerpts gathered by a browsing agent):
-{{ ref('orca_findings') }}
+{{ ref('4_a_orca_findings') }}
 
 Return only JSON:
 {

@@ -1,0 +1,6 @@
+# Run-level reference files (paths relative to the project root).
+# core gets them in .promptmap_inputs/<name>/ and copies them into profiles/ and fixtures/,
+# so every later step and test finds them in the tree.
+a1_start: seed/profiles/a1_start.gcode   # Factorian A1 start template
+a1_end: seed/profiles/a1_end.gcode       # Factorian A1 eject template (slicer placeholders intact)
+real_a1: seed/fixtures/real_a1.gcode.3mf # real Bambu Studio A1 export, 20.08 mm part

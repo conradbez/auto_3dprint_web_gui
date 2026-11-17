@@ -55,3 +55,28 @@ profiles/       A1 start/end G-code templates
 seed/fixtures/  real A1 Bambu Studio export, used by every deliverable check
 previous implmentation/   old hstream version (reference)
 ```
+
+## Run locally
+
+Requires Python 3.13 and [uv](https://docs.astral.sh/uv/).
+
+```bash
+uv sync
+uv run uvicorn app.main:app --reload --port 8000
+uv run pytest -q
+```
+
+Open <http://127.0.0.1:8000/>, upload an STL and choose N, or upload an already
+sliced `.gcode.3mf` to use the fallback path. `BAMBU_CLI` may point at a
+BambuStudio CLI that has the A1 system profiles installed; without it the STL
+endpoint returns a clear error and the pre-sliced fallback still works.
+
+### Export a sliced file from Bambu Studio
+
+1. Open the part in Bambu Studio and select the **Bambu Lab A1** printer.
+2. Slice the plate with your normal process and filament profile.
+3. Use **File → Export → Export plate sliced file** (or the plate context menu
+   **Export plate sliced file…**) and save the `.gcode.3mf`.
+4. Upload that file to `/api/fallback` (or the UI). Only the stock span between
+   `; MACHINE_END_GCODE_START` and `; EXECUTABLE_BLOCK_END` is replaced, and
+   `Metadata/plate_1.gcode.md5` is recomputed.

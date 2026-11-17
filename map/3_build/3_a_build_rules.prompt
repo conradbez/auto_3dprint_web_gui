@@ -26,4 +26,4 @@ Rules for every build step:
 - Finish with a 5-line summary: files added, how to run, what is stubbed or not done.
 
 Binding v1 spec (implement only the parts your step names; A1 only overrides any A1 mini mention):
-{{ ref('spec') | tojson }}
+{{ ref('2_a_spec') | tojson }}

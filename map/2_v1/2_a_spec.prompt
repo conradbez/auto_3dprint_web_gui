@@ -19,7 +19,7 @@ README:
 {{ rag_file('README.md')[0] }}
 
 Research (cited):
-{{ ref('research') | tojson }}
+{{ ref('1_b_research') | tojson }}
 
 Return only JSON:
 {

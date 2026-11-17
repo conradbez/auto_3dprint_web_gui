@@ -2,13 +2,16 @@
    risk is an invented hook. Every hook name research reports must appear verbatim in
    the fetched evidence. #}
 Raw evidence (agent's verbatim excerpts):
-{{ ref('orca_findings') }}
+{{ ref('4_a_orca_findings') }}
 
-Research hooks: {{ ref('orca_research').hooks | tojson }}
-Research manifest: {{ ref('orca_research').manifest | tojson }}
+Research hooks: {{ ref('4_b_orca_research').hooks | tojson }}
+Research manifest: {{ ref('4_b_orca_research').manifest | tojson }}
 
 First, list each hook "name" and each manifest required field from the research.
-For each, find it verbatim in the raw evidence. Fail if any one is absent from the
-evidence (MISSING entries are fine; a confident name with no source is not).
+For each, find it in the raw evidence. A dotted name like `module.Class.method`
+counts as found when the class and the method each appear verbatim in the evidence
+(docs show `class X` and `def method` apart, rarely the joined path). Fail if any
+name or part is absent from the evidence (MISSING entries are fine; a confident
+name with no source is not).
 
 Reply with only JSON: {"results": "pass"} or {"results": "fail"}.

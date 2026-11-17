@@ -1,10 +1,10 @@
 {# Landmark: the deliverable implements what the spec promised, judged from the
    final agent's summary. Non-gating. #}
 {{ config(gate=False) }}
-Spec features: {{ ref('spec').features | map(attribute='name') | list | tojson }}
-Spec API: {{ ref('spec').api | tojson }}
+Spec features: {{ ref('2_a_spec').features | map(attribute='name') | list | tojson }}
+Spec API: {{ ref('2_a_spec').api | tojson }}
 
-Final agent summary: {{ ref('web').output }}
+Final agent summary: {{ ref('3_e_web').output }}
 
 First, list each spec feature and endpoint and point to evidence in the summary that
 it was built. Fail if any feature or endpoint has no evidence.

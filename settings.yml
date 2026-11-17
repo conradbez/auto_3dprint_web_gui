@@ -1,5 +1,7 @@
-# Model aliases: pick one per model with {{ config(model="medium") }} (or agent_model= / browser_model=).
-# client.py's llm_call resolves these; models without config(model=...) use `model` below.
+# LLM used by `promptmap run` when there is no client.py (called via LiteLLM).
+# provider: any LiteLLM provider; model: any model that provider serves.
+# Edit freely — values are not validated. API keys come from .env / the environment.
+# Aliases, picked in a .prompt with {{ config(model="medium") }} (also agent_model= / browser_model=):
 provider: openrouter
 model: low
 aliases:

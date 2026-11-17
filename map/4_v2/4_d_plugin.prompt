@@ -1,8 +1,10 @@
 {# Step v2: the OrcaSlicer plugin, built on v1's tree. Thin wrapper only — if the
    plugin needs eject logic that autoeject/ doesn't have, that's a spec problem,
    not something to re-implement here. #}
-{{ config(model_type="coding_agent", promptfiles="web", agent_cost_limit=5) }}
-{{ ref('build_rules') }}
+{{ config(model_type="coding_agent", agent_step_limit=50, inherit_coding_folder="3_e_web") }}
+{{ ref('3_a_build_rules') }}
+
+Your working tree is the current directory: it already holds the previous step's files. Run `ls` first. Never `cd` out of it or edit files anywhere else (an earlier run cd'd into the host project and overwrote its pyproject.toml).
 
 Your step (v2): add `orca_plugin/`, an OrcaSlicer 2.5 plugin implementing the v2 spec below.
 
@@ -19,4 +21,4 @@ Your step (v2): add `orca_plugin/`, an OrcaSlicer 2.5 plugin implementing the v2
    (install, use, known limits).
 
 v2 spec:
-{{ ref('spec_v2') | tojson }}
+{{ ref('4_c_spec_v2') | tojson }}

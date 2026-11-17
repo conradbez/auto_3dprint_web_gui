@@ -5,7 +5,7 @@ requires-python = ">=3.13"
 dependencies = [
     "fastapi>=0.162.0",
     "openai>=3.42.1",
-    "promptmap[extras,browser]==0.7.19",
+    "promptmap[extras,browser]==0.8.6",
     "promptmap-extra-model-kinds==0.7.19",
     "python-multipart>=0.0.33",
     "trimesh>=5.2.0",

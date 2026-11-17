@@ -1,9 +1,14 @@
 {# Step 1/4: the pure-Python core. Everything else builds on these functions,
    and a future OrcaSlicer plugin will wrap them, so no web or slicer imports. #}
-{{ config(model_type="coding_agent", promptfiles="seed", agent_cost_limit=5) }}
-{{ ref('build_rules') }}
+{{ config(model_type="coding_agent", agent_step_limit=8, promptfiles=["a1_start", "a1_end", "real_a1"]) }}
+{{ ref('3_a_build_rules') }}
 
 Your step: create the `autoeject/` core package.
+
+0. Copy the reference files into the tree unchanged (byte for byte; later steps and
+   tests read them at these paths): `a1_start/a1_start.gcode` -> `profiles/a1_start.gcode`,
+   `a1_end/a1_end.gcode` -> `profiles/a1_end.gcode`, `real_a1/real_a1.gcode.3mf` ->
+   `fixtures/real_a1.gcode.3mf` (all under `.promptmap_inputs/`).
 
 1. `autoeject/ejectability.py`: `check(stl_bytes) -> Report` using trimesh.
    Implement the spec's ejectability_rules exactly (thresholds as named constants).

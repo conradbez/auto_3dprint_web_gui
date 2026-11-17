@@ -1,9 +1,9 @@
 {# Landmark: research only states things the web evidence supports. #}
 Raw web evidence (with SOURCES lists):
-{{ ref('brave_findings') }}
+{{ ref('1_a_brave_findings') }}
 
 Research output:
-{{ ref('research') | tojson }}
+{{ ref('1_b_research') | tojson }}
 
 First, list every URL appearing under a SOURCES heading in the raw evidence.
 Then check each "url" field in the research output. If any url is not in your

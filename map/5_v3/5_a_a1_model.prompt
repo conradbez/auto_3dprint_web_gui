@@ -1,7 +1,7 @@
-{{ config(model_type="coding_agent", agent_step_limit=20, agent_cost_limit=1) }}
+{{ config(model_type="coding_agent", agent_step_limit=8) }}
 
 create a build123d model of a A1 printer so we can build a screw (next engineer) to push off the printed mdoel
 
 use reserach below:
 
-{{ref("research_a1")}}
+{{ref("1_d_research_a1")}}

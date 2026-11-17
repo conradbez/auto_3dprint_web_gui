@@ -15,13 +15,13 @@ Rules:
   installed (tests fake the `orca` module to the researched signatures).
 
 v1 spec (binding for behaviour):
-{{ ref('spec') | tojson }}
+{{ ref('2_a_spec') | tojson }}
 
 What v1 actually built (final build agent's report):
-{{ ref('web').output }}
+{{ ref('3_e_web').output }}
 
 Plugin API research (cited):
-{{ ref('orca_research') | tojson }}
+{{ ref('4_b_orca_research') | tojson }}
 
 Return only JSON:
 {

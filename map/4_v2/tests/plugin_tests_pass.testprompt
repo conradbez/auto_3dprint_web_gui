@@ -1,9 +1,9 @@
 {# Landmark: the plugin step reports its tests passing, including the real-file run,
    and wraps autoeject/ instead of re-implementing it. #}
 Plugin step's report:
-{{ ref('plugin').output }}
+{{ ref('4_d_plugin').output }}
 
-v2 spec features: {{ ref('spec_v2').features | map(attribute='name') | list | tojson }}
+v2 spec features: {{ ref('4_c_spec_v2').features | map(attribute='name') | list | tojson }}
 
 First, find what the report says about the test run, the N=3 run on
 `fixtures/real_a1.gcode.3mf`, and whether eject logic was copied or wraps autoeject/.

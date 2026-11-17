@@ -234,7 +234,7 @@ dependencies = [
 requires-dist = [
     { name = "fastapi", specifier = ">=0.162.0" },
     { name = "openai", specifier = ">=3.42.1" },
-    { name = "promptmap", extras = ["extras", "browser"], specifier = "==0.7.19" },
+    { name = "promptmap", extras = ["extras", "browser"], specifier = "==0.8.6" },
     { name = "promptmap-extra-model-kinds", specifier = "==0.7.19" },
     { name = "python-multipart", specifier = ">=0.0.33" },
     { name = "trimesh", specifier = ">=5.2.0" },
@@ -1884,7 +1884,7 @@ wheels = [
 
 [[package]]
 name = "promptmap"
-version = "0.7.19"
+version = "0.8.6"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "click" },
@@ -1898,9 +1898,9 @@ dependencies = [
     { name = "rich" },
     { name = "tree-sitter-language-pack" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/0b/e7/fe0d3256254cb2c3d03ed681e452560fe081695e2dc4e804c93f53c38862/promptmap-0.7.19.tar.gz", hash = "sha256:89b0e4e7acd6cd5bbf428057b6028874e6848486c39a7f75d1313b34ef15a330", size = 293402, upload-time = "2026-11-16T13:43:26.1Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/7e/2c/75f8cc2b020f4ba1903834c372ea10f245fac3501c49e2543e5f95022ef0/promptmap-0.8.6.tar.gz", hash = "sha256:04c270f3294871d8b503926bdc07183df4f4790cb5ceb2ba7286c3f07ead29e7", size = 303817, upload-time = "2026-11-17T08:23:33.068Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/1d/7f/41e9eb720d9beb8089a844409bfeff951af0746287753bc026ec6c7dc7ca/promptmap-0.7.19-py3-none-any.whl", hash = "sha256:b65fe917662c5e01d3a4d96b11492d8784204a4fb24864be757054c80f14b004", size = 270043, upload-time = "2026-11-16T13:43:23.4Z" },
+    { url = "https://files.pythonhosted.org/packages/9c/10/3bb2b08bb4e7b06a84f19301f42616f1a16044fa30f3c44daa38c8e67090/promptmap-0.8.6-py3-none-any.whl", hash = "sha256:8d42a14bf9110079f2d3a01754f81a6b0ced31541652c0160362e02b356e018b", size = 278044, upload-time = "2026-11-17T08:23:27.468Z" },
 ]
 
 [package.optional-dependencies]

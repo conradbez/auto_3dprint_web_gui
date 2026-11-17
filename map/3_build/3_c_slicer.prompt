@@ -1,8 +1,8 @@
 {# Step 2/4: STL or pre-sliced file -> looped .gcode.3mf with the eject block.
    Highest-risk piece (headless BambuStudio), so the slicer sits behind one function
    with a fake-CLI test, and the pre-sliced path is proven on a real export. #}
-{{ config(model_type="coding_agent", promptfiles="core", agent_cost_limit=5) }}
-{{ ref('build_rules') }}
+{{ config(model_type="coding_agent", agent_step_limit=8, inherit_coding_folder="3_b_core") }}
+{{ ref('3_a_build_rules') }}
 
 Your step: `autoeject/slicer.py` and `autoeject/loop.py`, plus a `Dockerfile`.
 
